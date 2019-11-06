@@ -42,7 +42,7 @@ function submit_info(){
 
     $.ajax({
         type: "POST",
-        url: "/create_account",
+        url: "/api/signup",
         data: JSON.stringify({
             "email": email_address,
             "password": password

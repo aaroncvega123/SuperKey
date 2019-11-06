@@ -15,3 +15,7 @@ def login(request):
 def signup(request):
     template = 'signup.html'
     return render(request, template, {})
+
+def home(request):
+    template = 'home.html'
+    return render(request, template, {})
