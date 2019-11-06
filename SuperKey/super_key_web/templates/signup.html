@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="create_email_input" aria-describedby="emailHelp"
+            placeholder="Enter email">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="create_password_input" placeholder="Password">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Confirm password</label>
+        <input type="password" class="form-control" id="confirm_password_input" placeholder="Password">
+    </div>
+    <button id='create_account_button' class="btn btn-primary">Submit</button>
+</div>
+
+<script>
+
+var email_input = $("#create_email_input");
+var password_input = $("#create_password_input");
+var confirm_password_input = $("#confirm_password_input");
+var create_account_button = $("#create_account_button");
+
+create_account_button.click(function(){
+    if(password_input.val() == confirm_password_input.val()){
+        submit_info();        
+    }
+    else{
+        alert("Passwords do not match.");
+    }
+
+});
+
+function submit_info(){
+    var email_address = email_input.val();
+    var password = password_input.val();
+
+    $.ajax({
+        type: "POST",
+        url: "/create_account",
+        data: JSON.stringify({
+            "email": email_address,
+            "password": password
+        }),
+        success: function(response){
+            if(response.auth_key){
+                alert("Account created!");
+                document.cookie = "auth_key=" + response.auth_key + ";";
+                document.cookie = "email=" + response.email + ";";
+                document.cookie = "user_id=" + response.user_id + ";";
+                window.location.replace("/home");
+            }
+            else{
+                alert("Account already exists");
+            }
+        },
+        error: function(){
+            alert("error!")
+        }
+    });
+}
+
+</script>
+
+{% endblock %}

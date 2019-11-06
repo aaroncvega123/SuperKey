@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'style/login.css' %}">
+
+<div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="login_email_input" aria-describedby="emailHelp"
+            placeholder="Enter email">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="login_password_input" placeholder="Password">
+    </div>
+    <button id='login_submission_button' class="btn btn-primary">Submit</button>
+</div>
+
+<script>
+
+    var email_input = $("#login_email_input");
+    var password_input = $("#login_password_input");
+    var submission_button = $("#login_submission_button");
+
+    submission_button.click(function () {
+        submit_login();
+    });
+
+    function submit_login() {
+        var email_address = email_input.val();
+        var password = password_input.val();
+
+        $.ajax({
+            type: "POST",
+            url: "/api/login",
+            data: JSON.stringify({
+                "email": email_address,
+                "password": password
+            }),
+            success: function (response) {
+                if (response.auth_key) {
+                    alert("You have logged in!");
+                    document.cookie = "auth_key=" + response.auth_key + ";";
+                    document.cookie = "email=" + response.email + ";";
+                    document.cookie = "user_id=" + response.user_id + ";";
+                    alert(response.user_id);
+                    window.location.replace("/home");
+                }
+                else {
+                    alert("Account not found");
+                }
+            },
+            error: function () {
+                alert("error!")
+            }
+        });
+    }
+
+</script>
+
+{% endblock %}
