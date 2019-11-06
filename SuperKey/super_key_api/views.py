@@ -6,7 +6,7 @@ import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import hashlib
-from models import User
+from .models import User
 
 # API for data used in front ends
 

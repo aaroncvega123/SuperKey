@@ -13,7 +13,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-import views
+from . import views
 
 urlpatterns = [
     url(r'^login/$', views.login, name='login'),
