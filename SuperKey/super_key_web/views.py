@@ -19,3 +19,7 @@ def signup(request):
 def home(request):
     template = 'home.html'
     return render(request, template, {})
+
+def profile(request, email="myEmail"):
+    template = 'profile.html'
+    return render(request, template, {'email': email})
