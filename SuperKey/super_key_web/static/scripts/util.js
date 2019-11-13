@@ -11,12 +11,13 @@ function get_cookie_dict(){
         dict[name.replace(' ', '')] = data;
     });
     cookie_dict = dict;
+    console.log(cookie_dict);
 }
 
 function log_out(){
-    document.cookie = "auth_key=;";
-    document.cookie = "email=;";
-    document.cookie = "user_id=;";
+    document.cookie = "auth_key=;path=/web";
+    document.cookie = "email=;path=/web";
+    document.cookie = "user_id=;path=/web";
     location.reload();
 }
 
@@ -27,7 +28,7 @@ function set_nav_bar_buttons(){
         var profile_button = $('<li class="nav-item">')
             .append($("<a class='nav-link' class='right'>")
                 .text(cookie_dict['email'])
-                .attr('href', 'profile/' + cookie_dict['user_id'])    
+                .attr('href', '/web/profile/' + cookie_dict['user_id'])    
             );
         var log_out_button = $('<li class="nav-item">')
             .append($("<a class='nav-link' class='right' href=''>").text('Log out'));

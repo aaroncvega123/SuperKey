@@ -50,10 +50,10 @@ function submit_info(){
         success: function(response){
             if(response.auth_key){
                 alert("Account created!");
-                document.cookie = "auth_key=" + response.auth_key + ";";
-                document.cookie = "email=" + response.email + ";";
-                document.cookie = "user_id=" + response.user_id + ";";
-                window.location.replace("/home");
+                document.cookie = "auth_key=" + response.auth_key + ";path=/web";
+                document.cookie = "email=" + response.email + ";path=/web";
+                document.cookie = "user_id=" + response.user_id + ";path=/web";
+                window.location.replace("/web/home");
             }
             else{
                 alert("Account already exists");
